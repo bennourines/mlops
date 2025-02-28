@@ -23,9 +23,10 @@ pipeline {
 
         
 
-       stage('Run Functional Tests') {
+       stage('Run Tests') {
     steps {
         sh '''
+            make unit-test
             make functional-test
         '''
     }

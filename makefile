@@ -42,7 +42,7 @@ quality-check: lint format ## Run all code quality checks
 #  🧪 TESTING
 # =====================
 unit-test: ## Run unit tests
-	#PYTHONPATH=$(PYTHONPATH):$(shell pwd) $(PYTHON) -m pytest tests/unit
+	$(PYTHON) -m pytest tests/unit
 
 functional-test: ## Run functional tests
 	$(PYTHON) -m pytest tests/functional
@@ -77,10 +77,8 @@ docker-build: ## Build the Docker image
 	docker build -t ines253/ines_bennour_mlops .
 
 docker-run: ## Run the Docker container locally
-	docker run -d -p 8000:8000 ines253/ines_bennour_mlops
-	sleep 5  # Attendre que le conteneur démarre
-	docker ps  # Vérifier que le conteneur est en cours d'exécution
-	curl -s http://localhost:8000 || (echo "Le serveur FastAPI ne répond pas. Vérifiez les logs avec 'docker logs <CONTAINER_ID>'." && exit 1)
+	docker run -p 8000:8000 ines253/ines_bennour_mlops
+	
 
 docker-push: ## Push the Docker image to Docker Hub
 	docker push ines253/ines_bennour_mlops
