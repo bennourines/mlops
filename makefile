@@ -77,7 +77,7 @@ docker-build: ## Build the Docker image
 	docker build -t ines253/ines_bennour_mlops .
 
 docker-run: ## Run the Docker container locally
-	docker run -p 8000:8000 ines253/ines_bennour_mlops
+	docker run -p 8000:8000 ines253/ines_bennour_mlops &
 	
 
 docker-push: ## Push the Docker image to Docker Hub
