@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/190dee5234024b84a2a9a5c5619d2b74/artifacts
+end_time: 1740041711786
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 190dee5234024b84a2a9a5c5619d2b74
+run_name: welcoming-robin-972
+run_uuid: 190dee5234024b84a2a9a5c5619d2b74
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041709768
+status: 3
+tags: []
+user_id: ines

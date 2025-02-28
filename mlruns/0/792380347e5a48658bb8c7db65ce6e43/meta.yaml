@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/792380347e5a48658bb8c7db65ce6e43/artifacts
+end_time: 1740041700497
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 792380347e5a48658bb8c7db65ce6e43
+run_name: amazing-crow-30
+run_uuid: 792380347e5a48658bb8c7db65ce6e43
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041698430
+status: 3
+tags: []
+user_id: ines

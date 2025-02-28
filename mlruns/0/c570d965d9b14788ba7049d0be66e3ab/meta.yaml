@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/c570d965d9b14788ba7049d0be66e3ab/artifacts
+end_time: 1740041738312
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c570d965d9b14788ba7049d0be66e3ab
+run_name: bustling-ape-217
+run_uuid: c570d965d9b14788ba7049d0be66e3ab
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041735935
+status: 3
+tags: []
+user_id: ines

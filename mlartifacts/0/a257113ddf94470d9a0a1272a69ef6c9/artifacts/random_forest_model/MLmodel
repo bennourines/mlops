@@ -1,0 +1,74 @@
+artifact_path: random_forest_model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.8.10
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.3.2
+mlflow_version: 2.17.2
+model_size_bytes: 4450727
+model_uuid: 0f1d027610b54e57ba2b72db0aea8a3e
+run_id: a257113ddf94470d9a0a1272a69ef6c9
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "Account length", "required": true}, {"type":
+    "double", "name": "Area code", "required": true}, {"type": "double", "name": "International
+    plan", "required": true}, {"type": "double", "name": "Voice mail plan", "required":
+    true}, {"type": "double", "name": "Number vmail messages", "required": true},
+    {"type": "double", "name": "Total day minutes", "required": true}, {"type": "double",
+    "name": "Total day calls", "required": true}, {"type": "double", "name": "Total
+    eve minutes", "required": true}, {"type": "double", "name": "Total eve calls",
+    "required": true}, {"type": "double", "name": "Total night minutes", "required":
+    true}, {"type": "double", "name": "Total night calls", "required": true}, {"type":
+    "double", "name": "Total intl minutes", "required": true}, {"type": "double",
+    "name": "Total intl calls", "required": true}, {"type": "double", "name": "Customer
+    service calls", "required": true}, {"type": "double", "name": "State_AK", "required":
+    true}, {"type": "double", "name": "State_AL", "required": true}, {"type": "double",
+    "name": "State_AR", "required": true}, {"type": "double", "name": "State_AZ",
+    "required": true}, {"type": "double", "name": "State_CA", "required": true}, {"type":
+    "double", "name": "State_CO", "required": true}, {"type": "double", "name": "State_CT",
+    "required": true}, {"type": "double", "name": "State_DC", "required": true}, {"type":
+    "double", "name": "State_DE", "required": true}, {"type": "double", "name": "State_FL",
+    "required": true}, {"type": "double", "name": "State_GA", "required": true}, {"type":
+    "double", "name": "State_HI", "required": true}, {"type": "double", "name": "State_IA",
+    "required": true}, {"type": "double", "name": "State_ID", "required": true}, {"type":
+    "double", "name": "State_IL", "required": true}, {"type": "double", "name": "State_IN",
+    "required": true}, {"type": "double", "name": "State_KS", "required": true}, {"type":
+    "double", "name": "State_KY", "required": true}, {"type": "double", "name": "State_LA",
+    "required": true}, {"type": "double", "name": "State_MA", "required": true}, {"type":
+    "double", "name": "State_MD", "required": true}, {"type": "double", "name": "State_ME",
+    "required": true}, {"type": "double", "name": "State_MI", "required": true}, {"type":
+    "double", "name": "State_MN", "required": true}, {"type": "double", "name": "State_MO",
+    "required": true}, {"type": "double", "name": "State_MS", "required": true}, {"type":
+    "double", "name": "State_MT", "required": true}, {"type": "double", "name": "State_NC",
+    "required": true}, {"type": "double", "name": "State_ND", "required": true}, {"type":
+    "double", "name": "State_NE", "required": true}, {"type": "double", "name": "State_NH",
+    "required": true}, {"type": "double", "name": "State_NJ", "required": true}, {"type":
+    "double", "name": "State_NM", "required": true}, {"type": "double", "name": "State_NV",
+    "required": true}, {"type": "double", "name": "State_NY", "required": true}, {"type":
+    "double", "name": "State_OH", "required": true}, {"type": "double", "name": "State_OK",
+    "required": true}, {"type": "double", "name": "State_OR", "required": true}, {"type":
+    "double", "name": "State_PA", "required": true}, {"type": "double", "name": "State_RI",
+    "required": true}, {"type": "double", "name": "State_SC", "required": true}, {"type":
+    "double", "name": "State_SD", "required": true}, {"type": "double", "name": "State_TN",
+    "required": true}, {"type": "double", "name": "State_TX", "required": true}, {"type":
+    "double", "name": "State_UT", "required": true}, {"type": "double", "name": "State_VA",
+    "required": true}, {"type": "double", "name": "State_VT", "required": true}, {"type":
+    "double", "name": "State_WA", "required": true}, {"type": "double", "name": "State_WI",
+    "required": true}, {"type": "double", "name": "State_WV", "required": true}, {"type":
+    "double", "name": "State_WY", "required": true}]'
+  outputs: '[{"type": "double", "required": true}]'
+  params: null
+utc_time_created: '2025-02-20 01:03:08.434676'

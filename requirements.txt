@@ -1,0 +1,17 @@
+numpy
+pandas
+scikit-learn
+matplotlib
+jupyter
+mlflow
+fastapi
+uvicorn
+joblib
+pytest
+black
+flake8
+bandit
+mlflow
+pylint
+urllib3
+requests

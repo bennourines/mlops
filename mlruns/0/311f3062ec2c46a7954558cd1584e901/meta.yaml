@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/311f3062ec2c46a7954558cd1584e901/artifacts
+end_time: 1740041713789
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 311f3062ec2c46a7954558cd1584e901
+run_name: resilient-hare-819
+run_uuid: 311f3062ec2c46a7954558cd1584e901
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041711830
+status: 3
+tags: []
+user_id: ines

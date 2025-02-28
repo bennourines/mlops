@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/c8831926a0f14c869a730d53ebdf310e/artifacts
+end_time: 1740041716774
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c8831926a0f14c869a730d53ebdf310e
+run_name: rare-colt-765
+run_uuid: c8831926a0f14c869a730d53ebdf310e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041713833
+status: 3
+tags: []
+user_id: ines

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/20141d3263f849bf834daecbf47d06db/artifacts
+end_time: 1740041705871
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 20141d3263f849bf834daecbf47d06db
+run_name: nebulous-doe-746
+run_uuid: 20141d3263f849bf834daecbf47d06db
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041704064
+status: 3
+tags: []
+user_id: ines

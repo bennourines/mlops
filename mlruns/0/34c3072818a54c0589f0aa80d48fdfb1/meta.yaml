@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/34c3072818a54c0589f0aa80d48fdfb1/artifacts
+end_time: 1740046798066
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 34c3072818a54c0589f0aa80d48fdfb1
+run_name: churn_model_200_None_2
+run_uuid: 34c3072818a54c0589f0aa80d48fdfb1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740046794594
+status: 3
+tags: []
+user_id: ines

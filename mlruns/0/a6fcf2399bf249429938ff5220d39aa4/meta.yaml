@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/a6fcf2399bf249429938ff5220d39aa4/artifacts
+end_time: 1740041707674
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a6fcf2399bf249429938ff5220d39aa4
+run_name: adventurous-duck-69
+run_uuid: a6fcf2399bf249429938ff5220d39aa4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041705898
+status: 3
+tags: []
+user_id: ines

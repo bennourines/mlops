@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/beab235043af46bb830738ee27ef5f06/artifacts
+end_time: 1740041730977
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: beab235043af46bb830738ee27ef5f06
+run_name: smiling-gnu-46
+run_uuid: beab235043af46bb830738ee27ef5f06
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041728370
+status: 3
+tags: []
+user_id: ines

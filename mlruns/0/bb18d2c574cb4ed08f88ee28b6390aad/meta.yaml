@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/bb18d2c574cb4ed08f88ee28b6390aad/artifacts
+end_time: 1740041724339
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: bb18d2c574cb4ed08f88ee28b6390aad
+run_name: resilient-mouse-619
+run_uuid: bb18d2c574cb4ed08f88ee28b6390aad
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041721524
+status: 3
+tags: []
+user_id: ines

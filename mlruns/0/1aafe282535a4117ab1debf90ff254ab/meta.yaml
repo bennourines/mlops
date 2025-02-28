@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/1aafe282535a4117ab1debf90ff254ab/artifacts
+end_time: 1740041702281
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1aafe282535a4117ab1debf90ff254ab
+run_name: respected-stag-876
+run_uuid: 1aafe282535a4117ab1debf90ff254ab
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041700527
+status: 3
+tags: []
+user_id: ines

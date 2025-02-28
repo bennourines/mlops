@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/75e037d180284f1bac37c5c90e2f4da2/artifacts
+end_time: 1740041698399
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 75e037d180284f1bac37c5c90e2f4da2
+run_name: nimble-flea-196
+run_uuid: 75e037d180284f1bac37c5c90e2f4da2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740041694410
+status: 3
+tags: []
+user_id: ines
