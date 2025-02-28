@@ -21,6 +21,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY ./app.py .
 COPY ./pipelines ./pipelines
 COPY ./data ./data
+COPY churn_model.joblib .
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
