@@ -24,6 +24,18 @@ install: ## Install dependencies and setup virtual environment
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
 
+
+install-sonar: ## Install SonarScanner only if not already installed
+	@if [ ! -d "/opt/sonar-scanner" ]; then \
+		echo "Installing SonarScanner..."; \
+		wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip; \
+		unzip -q sonar-scanner-cli-4.8.0.2856-linux.zip; \
+		sudo mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner; \
+		echo 'export PATH=$$PATH:/opt/sonar-scanner/bin' >> ~/.bashrc; \
+		rm sonar-scanner-cli-4.8.0.2856-linux.zip; \
+	else \
+		echo "SonarScanner already installed at /opt/sonar-scanner"; \
+	fi
 # =====================
 #  🔍 CODE QUALITY & SECURITY
 # =====================
@@ -37,6 +49,12 @@ format: ## Format code using Black
 	$(PYTHON) -m black .
 
 quality-check: lint format ## Run all code quality checks
+
+# =====================
+# SONARQUBE ANALYSIS
+# =====================
+sonar: 
+	sonar-scanner
 
 # =====================
 #  🧪 TESTING
