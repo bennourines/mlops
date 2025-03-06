@@ -15,6 +15,4 @@ mlflow
 pylint
 urllib3
 requests
-pytest==7.3.1
-pytest-cov==4.1.0
-sonar-scanner-cli==4.8.0.2856
+
