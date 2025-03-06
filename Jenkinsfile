@@ -31,6 +31,23 @@ pipeline {
         '''
     }
 }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                       
+                        venv/bin/python -m pytest --cov=. --cov-report=xml:coverage.xml --junitxml=test-results.xml
+                        
+                        
+                        venv/bin/sonar-scanner
+                    '''
+                }
+                
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('Data Pipeline') {
             steps {
                 sh 'make data'
@@ -63,6 +80,7 @@ pipeline {
                 }
             }
         }
+        
 
         stage('Deploy') {
             steps {
