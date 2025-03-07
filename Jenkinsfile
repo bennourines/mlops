@@ -4,9 +4,9 @@ pipeline {
     environment {
         SONAR_TOKEN = credentials('sonarqube-token')
     }
-    
+
     tools {
-        sonarScanner 'SonarScanner'  
+        sonarScanner 'SonarQube Scanner'   
     }
 
     stages {
