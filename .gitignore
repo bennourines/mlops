@@ -1,0 +1,7 @@
+# Ignore large files and unnecessary folders
+*.zip
+*.tar.gz
+*.log
+venv/
+mlruns/
+
