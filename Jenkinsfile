@@ -4,6 +4,10 @@ pipeline {
     environment {
         SONAR_TOKEN = credentials('sonarqube-token')
     }
+    
+    tools {
+        sonarScanner 'SonarScanner'  
+    }
 
     stages {
         stage('Install Dependencies') {
@@ -11,6 +15,7 @@ pipeline {
                 sh 'make install'
             }
         }
+     
 
         stage('Start MLflow Server') {
             steps {
