@@ -1,10 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        SONAR_TOKEN = credentials('sonarqube-token')
-    }
-
+   
     
 
     stages {
@@ -40,8 +37,9 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {   
-                    sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN'   
+                script {
+                   
+                    sh 'make sonar'
                 }
             }
         }
