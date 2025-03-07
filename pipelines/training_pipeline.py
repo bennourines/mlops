@@ -10,10 +10,6 @@ from sklearn.metrics import (
     f1_score,
     roc_auc_score,
 )
-from mlflow_elastic import MLflowElasticLogger, get_current_run_id
-
-# Initialize Elasticsearch logger
-es_logger = MLflowElasticLogger(es_host="http://localhost:9200", es_index="mlflow-metrics")
 
 
 def train_model():
@@ -33,12 +29,9 @@ def train_model():
     run_name = "churn_model_balanced"
     with mlflow.start_run(run_name=run_name):
         print("Training model with class weights.")
-        
-        # Get current run ID for logging
-        run_id = get_current_run_id()
 
         # Calculate class weights
-        class_weights = {0: 1, 1: 5}
+        class_weights = {0: 1, 1: 5}  # Fixed indentation
 
         # Initialize model
         model = RandomForestClassifier(
@@ -55,31 +48,26 @@ def train_model():
         test_precision = precision_score(y_test, y_test_pred, pos_label=1)
         test_f1 = f1_score(y_test, y_test_pred, pos_label=1)
         test_roc_auc = roc_auc_score(y_test, model.predict_proba(X_test)[:, 1])
-        
-        # Parameters to log
-        params = {
-            "n_estimators": 100,
-            "max_depth": None,
-            "min_samples_split": 2,
-            "class_weight": "{0: 1, 1: 5}",  # Log actual weights used
-        }
-        
-        # Metrics to log
-        metrics = {
-            "test_recall_churn": test_recall,
-            "test_precision_churn": test_precision,
-            "test_f1_churn": test_f1,
-            "test_roc_auc": test_roc_auc,
-        }
 
-        # Log parameters and metrics to MLflow
-        mlflow.log_params(params)
-        mlflow.log_metrics(metrics)
-        
-        # Log to Elasticsearch
-        es_logger.log_parameters(run_id, params)
-        es_logger.log_metrics(run_id, metrics)
-        es_logger.log_model_performance(run_id, "churn_model", metrics)
+        # Log parameters (fix class_weight value)
+        mlflow.log_params(
+            {
+                "n_estimators": 100,
+                "max_depth": None,
+                "min_samples_split": 2,
+                "class_weight": "{0: 1, 1: 5}",  # Log actual weights used
+            }
+        )
+
+        # Log metrics
+        mlflow.log_metrics(
+            {
+                "test_recall_churn": test_recall,
+                "test_precision_churn": test_precision,
+                "test_f1_churn": test_f1,
+                "test_roc_auc": test_roc_auc,
+            }
+        )
 
         # Save model
         joblib.dump(model, "churn_model.joblib")
@@ -105,10 +93,7 @@ def retrain_model(
 
     run_name = "churn_model_retrain"
     with mlflow.start_run(run_name=run_name):
-        print(f"Retraining with: n_estimators={n_estimators}")
-        
-        # Get current run ID for logging
-        run_id = get_current_run_id()
+        print(f"Retraining with: n_estimators={n_estimators}")  # Retirer class_weight
 
         model = RandomForestClassifier(
             n_estimators=n_estimators,
@@ -117,41 +102,20 @@ def retrain_model(
             random_state=42,
         )
         model.fit(X_train, y_train)
-        
-        # Parameters to log
-        params = {
-            "n_estimators": n_estimators,
-            "max_depth": max_depth,
-            "min_samples_split": min_samples_split,
-        }
-        
-        # Log parameters to MLflow
-        mlflow.log_params(params)
-        
-        # Log to Elasticsearch
-        es_logger.log_parameters(run_id, params)
+
+        # Log parameters (sans class_weight)
+        mlflow.log_params(
+            {
+                "n_estimators": n_estimators,
+                "max_depth": max_depth,
+                "min_samples_split": min_samples_split,
+            }
+        )
 
         # Calculate metrics
         y_pred = model.predict(X_test)
         recall = recall_score(y_test, y_pred, pos_label=1)
-        precision = precision_score(y_test, y_pred, pos_label=1)
-        f1 = f1_score(y_test, y_pred, pos_label=1)
-        roc_auc = roc_auc_score(y_test, model.predict_proba(X_test)[:, 1])
-        
-        # Metrics to log
-        metrics = {
-            "test_recall": recall,
-            "test_precision": precision,
-            "test_f1": f1,
-            "test_roc_auc": roc_auc
-        }
-        
-        # Log metrics to MLflow
-        mlflow.log_metrics(metrics)
-        
-        # Log to Elasticsearch
-        es_logger.log_metrics(run_id, metrics)
-        es_logger.log_model_performance(run_id, "churn_model_retrain", metrics)
+        mlflow.log_metric("test_recall", recall)
 
         # Save model
         joblib.dump(model, "churn_model.joblib")
@@ -166,3 +130,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
