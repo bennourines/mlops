@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE_SCANNER = '/opt/sonar-scanner/bin/sonar-scanner'
+        SONAR_TOKEN = credentials('sonarqube-token')
     }
 
     stages {
@@ -36,15 +36,12 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-    steps {
-        // Run SonarQube analysis using the 'make sonar' command
-        sh 'make sonar'
-        
-        timeout(time: 1, unit: 'HOURS') {
-            waitForQualityGate abortPipeline: true
+            steps {
+                withSonarQubeEnv('SonarQube') {  // Use configured SonarQube server in Jenkins
+                    sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN'  // Use the token in the analysis
+                }
+            }
         }
-    }
-}
 
         stage('Data Pipeline') {
             steps {
