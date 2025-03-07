@@ -8,6 +8,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'make install'
+                sh 'make install-sonar'
             }
         }
      
@@ -40,6 +41,7 @@ pipeline {
                 script {
                    
                     sh 'make sonar'
+                    
                 }
             }
         }
