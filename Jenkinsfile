@@ -26,6 +26,15 @@ pipeline {
                 sh 'venv/bin/pip show urllib3'
             }
         }
+        
+        stage('SonarQube Analysis') {
+    steps {
+        script {
+            
+            sh 'export PATH=$PATH:/opt/sonar-scanner/bin && make sonar'
+        }
+    }
+}
 
         stage('Run Tests') {
             steps {
@@ -36,15 +45,7 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                   
-                    sh 'make sonar'
-                    
-                }
-            }
-        }
+        
 
         stage('Data Pipeline') {
             steps {
