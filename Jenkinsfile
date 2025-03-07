@@ -5,9 +5,7 @@ pipeline {
         SONAR_TOKEN = credentials('sonarqube-token')
     }
 
-    tools {
-        sonarScanner 'SonarScanner'   
-    }
+    
 
     stages {
         stage('Install Dependencies') {
@@ -42,8 +40,8 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {  // Use configured SonarQube server in Jenkins
-                    sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN'  // Use the token in the analysis
+                withSonarQubeEnv('SonarQube') {   
+                    sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN'   
                 }
             }
         }
