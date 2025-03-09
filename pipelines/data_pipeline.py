@@ -1,10 +1,12 @@
-# data_loading.py
+# pipelines/data_pipeline.py
 import os
 import joblib
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
 import warnings
+import mlflow
+from pipelines.mlflow_elastic import get_es_logger
 
 warnings.filterwarnings("ignore")
 
@@ -12,6 +14,15 @@ warnings.filterwarnings("ignore")
 def load_and_prepare_data(train_path="churn_80.csv", test_path="churn_20.csv"):
     """Loads, cleans, and prepares data for training and evaluation."""
     print(f"Loading data from {train_path} and {test_path}")
+
+    # Initialize MLflow
+    mlflow.set_tracking_uri("http://localhost:5000")
+    
+    # Get Elasticsearch logger
+    es_logger = get_es_logger()
+    
+    # Start system monitoring
+    es_logger.start_system_monitoring(interval=30)  # Monitor every 30 seconds
 
     # Check if files exist
     if not os.path.exists(train_path) or not os.path.exists(test_path):
@@ -22,6 +33,29 @@ def load_and_prepare_data(train_path="churn_80.csv", test_path="churn_20.csv"):
     # Load CSVs
     df_train = pd.read_csv(train_path)
     df_test = pd.read_csv(test_path)
+    
+    # Log data statistics to Elasticsearch
+    with mlflow.start_run(run_name="data_preparation"):
+        run_id = mlflow.active_run().info.run_id
+        
+        # Calculate basic statistics
+        data_stats = {
+            "train_rows": len(df_train),
+            "test_rows": len(df_test),
+            "total_rows": len(df_train) + len(df_test),
+            "num_features": len(df_train.columns) - 1,  # Excluding target
+            "churn_rate_train": df_train["Churn"].mean() * 100,
+            "churn_rate_test": df_test["Churn"].mean() * 100,
+            "missing_values_train": df_train.isnull().sum().sum(),
+            "missing_values_test": df_test.isnull().sum().sum()
+        }
+        
+        # Log to MLflow
+        for key, value in data_stats.items():
+            mlflow.log_metric(key, value)
+        
+        # Log to Elasticsearch
+        es_logger.log_data_stats(run_id, data_stats)
 
     # Fill missing numeric values with the column mean
     for col in df_train.select_dtypes(include=["float64", "int64"]).columns:
