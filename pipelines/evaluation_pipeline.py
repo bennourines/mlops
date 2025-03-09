@@ -156,4 +156,114 @@ def evaluate_model():
         # Create feature distribution plot for top 5 features
         model_features = X_test.columns
         feature_importances = model.feature_importances_
-        top_indices =
+        top_indices = np.argsort(feature_importances)[-5:]
+        top_features = [model_features[i] for i in top_indices]
+        
+        plt.figure(figsize=(12, 6))
+        for feature in top_features:
+            # Plot distribution for positive class (Churn=1)
+            plt.hist(X_test[feature][y_test == 1], alpha=0.5, bins=20, 
+                    label=f"{feature} (Churn)")
+        
+        plt.title('Feature Distribution for Top Features (Churn Customers)')
+        plt.xlabel('Feature Value')
+        plt.ylabel('Count')
+        plt.legend()
+        plt.tight_layout()
+        
+        # Save feature distribution plot
+        feature_dist_path = "feature_distribution.png"
+        plt.savefig(feature_dist_path)
+        mlflow.log_artifact(feature_dist_path)
+        
+        # Log prediction errors analysis
+        error_indices = np.where(y_pred != y_test)[0]
+        error_analysis = {
+            "total_errors": len(error_indices),
+            "error_rate": len(error_indices) / len(y_test),
+            "false_positives": int(fp),
+            "false_negatives": int(fn)
+        }
+        
+        # Log error analysis to MLflow
+        for key, value in error_analysis.items():
+            mlflow.log_metric(key, value)
+        
+        # Log error analysis to Elasticsearch
+        es_logger.log_metrics(run_id, error_analysis)
+        
+        # Create threshold analysis
+        thresholds = np.linspace(0.1, 0.9, 9)
+        threshold_metrics = []
+        
+        for threshold in thresholds:
+            y_pred_threshold = (y_pred_proba >= threshold).astype(int)
+            precision_t = precision_score(y_test, y_pred_threshold, zero_division=0)
+            recall_t = recall_score(y_test, y_pred_threshold, zero_division=0)
+            f1_t = f1_score(y_test, y_pred_threshold, zero_division=0)
+            
+            threshold_metrics.append({
+                "threshold": threshold,
+                "precision": precision_t,
+                "recall": recall_t,
+                "f1": f1_t
+            })
+        
+        # Convert to DataFrame for easier plotting
+        threshold_df = pd.DataFrame(threshold_metrics)
+        
+        # Create threshold analysis plot
+        plt.figure(figsize=(10, 6))
+        plt.plot(threshold_df['threshold'], threshold_df['precision'], 'b-', label='Precision')
+        plt.plot(threshold_df['threshold'], threshold_df['recall'], 'g-', label='Recall')
+        plt.plot(threshold_df['threshold'], threshold_df['f1'], 'r-', label='F1')
+        plt.xlabel('Threshold')
+        plt.ylabel('Score')
+        plt.title('Precision, Recall, and F1 Score vs Threshold')
+        plt.legend()
+        plt.grid(True)
+        
+        # Save threshold analysis plot
+        threshold_path = "threshold_analysis.png"
+        plt.savefig(threshold_path)
+        mlflow.log_artifact(threshold_path)
+        
+        # Log optimal threshold based on F1 score
+        optimal_idx = threshold_df['f1'].idxmax()
+        optimal_threshold = threshold_df.loc[optimal_idx, 'threshold']
+        mlflow.log_metric("optimal_threshold", optimal_threshold)
+        
+        # Write results summary to text file
+        with open("evaluation_summary.txt", "w") as f:
+            f.write(f"MODEL EVALUATION SUMMARY\n")
+            f.write(f"=======================\n\n")
+            f.write(f"Accuracy: {acc:.4f}\n")
+            f.write(f"ROC AUC: {roc_auc:.4f}\n")
+            f.write(f"PR AUC: {pr_auc:.4f}\n\n")
+            f.write(f"Churn Class Metrics:\n")
+            f.write(f"  Precision: {precision_churn:.4f}\n")
+            f.write(f"  Recall: {recall_churn:.4f}\n")
+            f.write(f"  F1 Score: {f1_churn:.4f}\n\n")
+            f.write(f"Confusion Matrix:\n")
+            f.write(f"  True Negatives: {tn}\n")
+            f.write(f"  False Positives: {fp}\n")
+            f.write(f"  False Negatives: {fn}\n")
+            f.write(f"  True Positives: {tp}\n\n")
+            f.write(f"Optimal Threshold: {optimal_threshold:.2f}\n")
+            f.write(f"Evaluation Time: {eval_time:.2f} seconds\n")
+        
+        # Log summary as artifact
+        mlflow.log_artifact("evaluation_summary.txt")
+        
+        print(f"✅ Model evaluation complete. Results logged to MLflow and Elasticsearch.")
+        print(f"   Accuracy: {acc:.4f}, ROC AUC: {roc_auc:.4f}, F1 (Churn): {f1_churn:.4f}")
+        
+        return metrics
+
+
+def main():
+    evaluate_model()
+
+
+if __name__ == "__main__":
+    main()
